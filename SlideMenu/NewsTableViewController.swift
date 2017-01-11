@@ -8,7 +8,13 @@
 
 import UIKit
 
-class NewsTableViewController: UITableViewController {
+class NewsTableViewController: UITableViewController, MenuTransitionManagerDelegate {
+    internal func dismiss() {
+        dismiss(animated: true, completion: nil)
+    }
+
+    
+    var menuTransitionManager = MenuTransitionManager()
     
     @IBAction func unwindToHome(segue: UIStoryboardSegue){
         let sourceController = segue.source as! MenuTableViewController
@@ -76,6 +82,8 @@ class NewsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let menuTableViewController = segue.destination as! MenuTableViewController
         menuTableViewController.currentItem = self.title!
+        menuTableViewController.transitioningDelegate = self.menuTransitionManager
+        self.menuTransitionManager.delegate = self
     }
 
 

@@ -8,11 +8,25 @@
 
 import UIKit
 
+
+@objc protocol MenuTransitionManagerDelegate{
+    func dismiss()
+}
+
 class MenuTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
     var duration = 0.5
     var isPresenting = false
     
-    var snapShot: UIView?
+    var delegate:MenuTransitionManagerDelegate?
+    
+    var snapShot: UIView? {
+        didSet {
+            if let _delegate = delegate {
+                let tapGestureRecognizer = UITapGestureRecognizer.init(target: _delegate, action: "dismiss")
+                snapShot?.addGestureRecognizer(tapGestureRecognizer)
+            }
+        }
+    }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
@@ -25,8 +39,42 @@ class MenuTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UI
         
         // Set up the transform for sliding
         let container = transitionContext.containerView
-        let moveDown = CGAffineTransformMakeTranslation(0, contaniner.frame.height - 150)
-        let moveUp = CGAffineTransformMakeTranslation(0, -50)
+        let moveDown = CGAffineTransform(translationX: 0, y: container.frame.height - 150)
+        let moveUp = CGAffineTransform(translationX: 0, y: -50)
         
+        // Add both views to the container view
+        if isPresenting {
+            toView.transform = moveUp
+            snapShot = fromView.snapshotView(afterScreenUpdates: true)
+            container.addSubview(toView)
+            container.addSubview(snapShot!)
+        }
+        
+        // Perform the animation
+        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.3, options: UIViewAnimationOptions.curveEaseIn, animations: {
+            
+            if self.isPresenting {
+                self.snapShot?.transform = moveDown
+                toView.transform = CGAffineTransform.identity
+            } else {
+                self.snapShot?.transform = CGAffineTransform.identity
+                fromView.transform = moveUp
+            }
+        }, completion: {finished in
+            transitionContext.completeTransition(true)
+            if !self.isPresenting {
+                self.snapShot?.removeFromSuperview()
+            }
+        })
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        isPresenting = false
+        return self
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        isPresenting = true
+        return self
     }
 }
