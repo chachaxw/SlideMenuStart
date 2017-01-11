@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16D17a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qJo-DB-YKl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D17a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qJo-DB-YKl">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,7 +46,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="titleLabel" destination="tgz-zH-LXd" id="DiK-jP-TYG"/>
-                                    <segue destination="COF-N4-X5g" kind="unwind" unwindAction="unwindToHome:" id="24r-RH-kLN"/>
+                                    <segue destination="COF-N4-X5g" kind="unwind" unwindAction="unwindToHomeWithSegue:" id="CkB-66-54n"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -60,7 +60,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rE4-EI-7gH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="COF-N4-X5g" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1601" y="-233"/>
+            <point key="canvasLocation" x="1599.375" y="-233.45070422535213"/>
         </scene>
         <!--News-->
         <scene sceneID="y1C-iH-if4">
@@ -75,7 +75,7 @@
                                 <rect key="frame" x="0.0" y="22" width="320" height="303"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="326-jL-bcm" id="8Vn-IX-WNt">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="303"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="302.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HFM-nA-7bo">
@@ -144,6 +144,9 @@
                     <navigationItem key="navigationItem" title="News" id="Q9t-hJ-dpA">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="gZS-0Q-dOU">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="pUA-9M-XjT" kind="presentation" id="CSi-ZP-5Ag"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>

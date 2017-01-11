@@ -10,6 +10,11 @@ import UIKit
 
 class NewsTableViewController: UITableViewController {
     
+    @IBAction func unwindToHome(segue: UIStoryboardSegue){
+        let sourceController = segue.source as! MenuTableViewController
+        self.title = sourceController.currentItem
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,6 +73,10 @@ class NewsTableViewController: UITableViewController {
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let menuTableViewController = segue.destination as! MenuTableViewController
+        menuTableViewController.currentItem = self.title!
+    }
 
 
 }
