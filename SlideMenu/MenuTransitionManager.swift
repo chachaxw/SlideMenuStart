@@ -22,7 +22,7 @@ class MenuTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UI
     var snapShot: UIView? {
         didSet {
             if let _delegate = delegate {
-                let tapGestureRecognizer = UITapGestureRecognizer.init(target: _delegate, action: "dismiss")
+                let tapGestureRecognizer = UITapGestureRecognizer.init(target: _delegate, action: #selector(MenuTransitionManagerDelegate.dismiss))
                 snapShot?.addGestureRecognizer(tapGestureRecognizer)
             }
         }
@@ -51,7 +51,7 @@ class MenuTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UI
         }
         
         // Perform the animation
-        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.3, options: UIViewAnimationOptions.curveEaseIn, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.3, options: UIViewAnimationOptions.curveEaseInOut, animations: {
             
             if self.isPresenting {
                 self.snapShot?.transform = moveDown
